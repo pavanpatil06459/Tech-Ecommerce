@@ -38,15 +38,37 @@ const slidesData = [
   },
 ];
 
+const categories = [
+  {
+    icon: <FaHeadphones className="text-3xl sm:text-4xl mb-3 mx-auto" />,
+    label: "Audio",
+    gradient: "from-blue-500 to-purple-600",
+  },
+  {
+    icon: <FaMobileAlt className="text-3xl sm:text-4xl mb-3 mx-auto" />,
+    label: "Phones",
+    gradient: "from-green-500 to-teal-600",
+  },
+  {
+    icon: <FaLaptop className="text-3xl sm:text-4xl mb-3 mx-auto" />,
+    label: "Laptops",
+    gradient: "from-yellow-500 to-orange-600",
+  },
+  {
+    icon: <FaGamepad className="text-3xl sm:text-4xl mb-3 mx-auto" />,
+    label: "Gaming",
+    gradient: "from-red-500 to-pink-600",
+  },
+];
+
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [loading, setLoading] = useState(true); // 🔹 loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading delay
     const timer = setTimeout(() => setLoading(false), 2000);
+    AOS.init({ duration: 1000, once: true });
 
-    AOS.init({ duration: 1000 });
     const slideInterval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slidesData.length);
     }, 3000);
@@ -70,157 +92,203 @@ const Home = () => {
 
   return (
     <>
-      {/* Hero Section */}
-      <section
-        id="home"
-        className="hero-bg text-white py-20 px-6 relative overflow-hidden bg-gradient-to-r from-indigo-200 via-purple-300 to-pink-200"
-      >
+      {/* ── Hero Section ── */}
+      <section className="relative text-white overflow-hidden bg-gradient-to-br from-indigo-400 via-purple-400 to-pink-300 py-16 sm:py-20 md:py-28 px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="container mx-auto text-center relative z-10"
+          className="relative z-10 max-w-3xl mx-auto text-center"
         >
-          <h2 className="text-5xl font-extrabold mb-4 leading-tight">
-            <span className="typewriter">
-              Welcome to <span className="color-change">TechSpace</span>
-            </span>
-          </h2>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+            Welcome to{" "}
+            <span className="text-yellow-300 drop-shadow">TechSpace</span>
+          </h1>
 
-          <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Discover cutting-edge tech gadgets, from headphones to smartphones.
+          <p className="text-base sm:text-lg md:text-xl mb-8 max-w-xl mx-auto text-white/90">
+            Discover cutting-edge tech gadgets — from headphones to smartphones.
             Secure, fast shipping and unbeatable customer support.
           </p>
-          <div className="flex justify-center space-x-4">
-            <button className="bg-white text-purple-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition duration-200 shadow-lg">
-              <a href="/products">
+
+          <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+            <Link
+              to="/products"
+              className="bg-white text-purple-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-gray-100 transition shadow-lg text-sm sm:text-base"
+            >
               Shop Now
-              </a>
-            </button>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-purple-600 transition duration-200">
+            </Link>
+            <Link
+              to="/about"
+              className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold hover:bg-white hover:text-purple-600 transition text-sm sm:text-base"
+            >
               Learn More
-            </button>
+            </Link>
           </div>
         </motion.div>
 
         {/* Background Wave */}
         <svg
           className="absolute bottom-0 left-0 w-full h-auto"
-          viewBox="0 0 1440 320"
+          viewBox="0 0 1440 120"
           preserveAspectRatio="none"
         >
           <path
-            fill="#09194d8e"
+            fill="white"
             fillOpacity="1"
-            d="M0,224L48,213.3C96,203,192,181,288,149.3C384,117,480,75,576,64C672,53,768,75,
-    864,112C960,149,1056,203,1152,229.3C1248,256,1344,256,1392,256L1440,256L1440,320L1392,
-    320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,
-    320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+            d="M0,64L48,58.7C96,53,192,43,288,48C384,53,480,75,576,80C672,85,768,75,864,64C960,53,1056,43,1152,48C1248,53,1344,75,1392,85.3L1440,96L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
           />
         </svg>
       </section>
 
-      {/* Featured Products */}
+      {/* ── Featured Products Slider ── */}
       <motion.section
         id="products"
-        className="container mx-auto px-6 py-16"
+        className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
       >
-        <h3 className="text-3xl font-bold text-gray-800 mb-10 text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 sm:mb-10 text-center">
           Featured Products
-        </h3>
+        </h2>
 
-        <div className="relative bg-white rounded-lg shadow-lg overflow-hidden">
-          <div className="relative h-72 md:h-[22rem]">
+        <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden">
+          {/* Slides */}
+          <div className="relative h-64 sm:h-72 md:h-80">
             {slidesData.map((slide, index) => (
               <div
                 key={slide.id}
-                className={`absolute inset-0 transition-transform duration-700 ease-in-out ${
+                className={`absolute inset-0 transition-all duration-700 ease-in-out ${
                   index === currentSlide
-                    ? "translate-x-0 opacity-100 z-10 pointer-events-auto"
-                    : "translate-x-full opacity-0 z-0 pointer-events-none"
+                    ? "opacity-100 z-10"
+                    : "opacity-0 z-0 pointer-events-none"
                 }`}
               >
-                <div className="flex flex-col md:flex-row items-center h-full">
-                  <div className="md:w-1/2 p-8">
+                <div className="flex flex-col sm:flex-row items-center h-full p-4 sm:p-6 md:p-8 gap-4">
+                  {/* Image */}
+                  <div className="w-full sm:w-2/5 flex items-center justify-center">
                     <img
                       src={slide.imgSrc}
                       alt={slide.alt}
-                      className="w-full h-40 md:h-56 object-contain rounded-md"
+                      className="h-32 sm:h-44 md:h-52 object-contain"
                     />
                   </div>
-                  <div className="md:w-1/2 p-8 text-center md:text-left">
-                    <h4 className="text-2xl font-bold mb-4">{slide.title}</h4>
-                    <p className="text-gray-600 mb-6">{slide.description}</p>
-                    <p className="text-3xl font-bold text-purple-600 mb-6 animate-pulse">
+                  {/* Content */}
+                  <div className="w-full sm:w-3/5 text-center sm:text-left">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2 sm:mb-3">
+                      {slide.title}
+                    </h3>
+                    <p className="text-gray-500 text-sm sm:text-base mb-3 sm:mb-4 line-clamp-3">
+                      {slide.description}
+                    </p>
+                    <p className="text-2xl sm:text-3xl font-bold text-purple-600 mb-4 animate-pulse">
                       {slide.price}
                     </p>
-                    <button className="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition duration-200">
-                      Add to Cart
-                    </button>
+                    <Link
+                      to="/products"
+                      className="inline-block bg-purple-600 text-white px-5 py-2.5 rounded-xl hover:bg-purple-700 transition text-sm sm:text-base font-medium"
+                    >
+                      View Products
+                    </Link>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Slider Dots */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          {/* Dot Indicators */}
+          <div className="flex justify-center space-x-2 pb-4">
             {slidesData.map((_, index) => (
-              <div
+              <button
                 key={index}
-                className={`w-3 h-3 rounded-full cursor-pointer ${
-                  index === currentSlide ? "bg-purple-600" : "bg-gray-300"
-                }`}
                 onClick={() => setCurrentSlide(index)}
                 aria-label={`Go to slide ${index + 1}`}
-                role="button"
-                tabIndex={0}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    setCurrentSlide(index);
-                  }
-                }}
-              ></div>
+                className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? "bg-purple-600 w-6"
+                    : "bg-gray-300 hover:bg-gray-400"
+                }`}
+              />
             ))}
           </div>
         </div>
       </motion.section>
 
-      {/* Categories Section */}
+      {/* ── Categories Section ── */}
       <motion.section
         id="categories"
-        className="py-16 px-6"
+        className="py-12 sm:py-16 px-4 sm:px-6 bg-gray-50"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
+        transition={{ duration: 0.7 }}
       >
-        <div className="container mx-auto">
-          <h3 className="text-3xl font-bold text-gray-800 mb-10 text-center">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-8 sm:mb-10 text-center">
             Shop by Category
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8 rounded-lg text-center hover-lift cursor-pointer">
-              <FaHeadphones className="text-4xl mb-4 mx-auto" />
-              <h4 className="text-xl font-bold">Audio</h4>
-            </div>
-            <div className="bg-gradient-to-r from-green-500 to-teal-600 text-white p-8 rounded-lg text-center hover-lift cursor-pointer">
-              <FaMobileAlt className="text-4xl mb-4 mx-auto" />
-              <h4 className="text-xl font-bold">Phones</h4>
-            </div>
-            <div className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white p-8 rounded-lg text-center hover-lift cursor-pointer">
-              <FaLaptop className="text-4xl mb-4 mx-auto" />
-              <h4 className="text-xl font-bold">Laptops</h4>
-            </div>
-            <div className="bg-gradient-to-r from-red-500 to-pink-600 text-white p-8 rounded-lg text-center hover-lift cursor-pointer">
-              <FaGamepad className="text-4xl mb-4 mx-auto" />
-              <h4 className="text-xl font-bold">Gaming</h4>
-            </div>
+          </h2>
+
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {categories.map(({ icon, label, gradient }) => (
+              <Link
+                key={label}
+                to="/products"
+                className={`bg-gradient-to-br ${gradient} text-white p-6 sm:p-8 rounded-2xl text-center
+                  hover:scale-105 hover:shadow-xl transition-all duration-300 cursor-pointer`}
+              >
+                {icon}
+                <h4 className="text-base sm:text-xl font-bold">{label}</h4>
+              </Link>
+            ))}
           </div>
         </div>
       </motion.section>
+
+      {/* ── Why TechSpace ── */}
+      <section className="py-12 sm:py-16 px-4 sm:px-6 bg-white" data-aos="fade-up">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">
+            Why Choose TechSpace?
+          </h2>
+          <p className="text-gray-500 mb-10 text-sm sm:text-base max-w-xl mx-auto">
+            We make buying tech simple, safe, and satisfying.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              { icon: "🚀", title: "Fast Delivery", desc: "Get your orders quickly and safely." },
+              { icon: "🔐", title: "Secure Payments", desc: "Shop with confidence every time." },
+              { icon: "🎧", title: "24/7 Support", desc: "We're always here to help you." },
+            ].map(({ icon, title, desc }) => (
+              <div
+                key={title}
+                className="p-6 bg-gray-50 rounded-2xl shadow hover:shadow-md transition text-center"
+              >
+                <div className="text-4xl mb-3">{icon}</div>
+                <h3 className="font-semibold text-gray-800 mb-1">{title}</h3>
+                <p className="text-gray-500 text-sm">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA Banner ── */}
+      <section className="bg-gradient-to-r from-purple-600 to-indigo-600 py-12 px-4 sm:px-6 text-white text-center">
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-3">Ready to upgrade your tech?</h2>
+          <p className="text-white/80 mb-6 text-sm sm:text-base">
+            Browse hundreds of verified products at unbeatable prices.
+          </p>
+          <Link
+            to="/products"
+            className="inline-block bg-yellow-400 text-black font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-yellow-300 transition text-sm sm:text-base"
+          >
+            Shop Now 🛍️
+          </Link>
+        </div>
+      </section>
     </>
   );
 };
