@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Eye } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../enviroment";
 
@@ -15,100 +15,115 @@ const Login = () => {
     e.preventDefault();
     setError("");
     setLoading(true);
-
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         formData.email.trim(),
         formData.password
       );
-
       const token = await userCredential.user.getIdToken();
-
       sessionStorage.setItem("authToken", token);
-
       navigate("/", { replace: true });
     } catch (err) {
-      switch (err.code) {
-        case "auth/user-not-found":
-          setError("No account found with this email.");
-          break;
-        case "auth/wrong-password":
-          setError("Incorrect password. Please try again.");
-          break;
-        case "auth/invalid-email":
-          setError("Please enter a valid email address.");
-          break;
-        case "auth/too-many-requests":
-          setError("Too many failed attempts. Please try again later.");
-          break;
-        default:
-          setError("Login failed. Please try again.");
-      }
+      const messages = {
+        "auth/user-not-found": "No account found with this email.",
+        "auth/wrong-password": "Incorrect password. Please try again.",
+        "auth/invalid-email": "Please enter a valid email address.",
+        "auth/invalid-credential": "Invalid email or password.",
+        "auth/too-many-requests": "Too many failed attempts. Please try again later.",
+      };
+      setError(messages[err.code] || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
   };
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-200 via-purple-300 to-pink-200 px-4">
-      {loading ? (
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-indigo-200 via-purple-300 to-pink-200">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
           <p className="mt-4 text-gray-700 font-medium">Logging in...</p>
         </div>
-      ) : (
-        <div className="bg-white shadow-2xl rounded-2xl w-full max-w-md p-8">
-          <h3 className="text-2xl sm:text-3xl font-bold text-center text-blue-800 mb-6">
-            Log In
-          </h3>
-          <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-            <div>
-              <label className="block text-gray-600 mb-2">Email</label>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-indigo-200 via-purple-300 to-pink-200 px-4 py-10">
+      <div className="bg-white shadow-2xl rounded-2xl w-full max-w-sm sm:max-w-md p-6 sm:p-8">
+        {/* Logo */}
+        <div className="flex justify-center mb-5">
+          <img src="/Images/header logo.png" alt="TechSpace" className="w-10 h-10 sm:w-12 sm:h-12" />
+        </div>
+
+        <h3 className="text-2xl sm:text-3xl font-bold text-center text-indigo-800 mb-2">
+          Welcome Back
+        </h3>
+        <p className="text-center text-gray-500 text-sm mb-6">
+          Log in to your TechSpace account
+        </p>
+
+        <form className="flex flex-col gap-4 sm:gap-5" onSubmit={handleSubmit}>
+          <div>
+            <label className="block text-gray-600 text-sm font-medium mb-1.5">
+              Email
+            </label>
+            <input
+              type="email"
+              placeholder="johndoe@example.com"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 text-sm sm:text-base transition"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-600 text-sm font-medium mb-1.5">
+              Password
+            </label>
+            <div className="relative">
               <input
-                type="email"
-                placeholder="johndoe@example.com"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
-                }
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-500 transition duration-300"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                className="w-full px-4 py-2.5 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 text-sm sm:text-base transition pr-10"
                 required
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-400 hover:text-gray-600"
+                aria-label="Toggle password visibility"
+              >
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </button>
             </div>
-            <div>
-              <label className="block text-gray-600 mb-2">Password</label>
-              <div className="relative">
-                <input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
-                  className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-500 transition duration-300"
-                  required
-                />
-                <span
-                  onMouseEnter={() => setShowPassword(true)}
-                  onMouseLeave={() => setShowPassword(false)}
-                  aria-label="Toggle password visibility"
-                  className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer select-none"
-                >
-                  <Eye size={20} />
-                </span>
-              </div>
+          </div>
+
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-2.5">
+              <p className="text-red-600 text-sm">{error}</p>
             </div>
-            {error && <p className="text-red-500 text-sm mt-1">{error}</p>}
-            <button
-              type="submit"
-              className="w-full py-3 mt-4 bg-purple-600 text-white font-semibold rounded-lg shadow-md transform transition duration-300 hover:bg-purple-700 hover:scale-105"
-            >
-              Submit
-            </button>
-          </form>
-        </div>
-      )}
+          )}
+
+          <button
+            type="submit"
+            className="w-full py-3 mt-1 bg-purple-600 text-white font-semibold rounded-xl shadow hover:bg-purple-700 active:scale-95 transition text-sm sm:text-base"
+          >
+            Log In
+          </button>
+        </form>
+
+        <p className="text-center text-gray-500 text-sm mt-5">
+          Don't have an account?{" "}
+          <Link to="/register" className="text-purple-600 font-medium hover:underline">
+            Register here
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
