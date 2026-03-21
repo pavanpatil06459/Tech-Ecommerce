@@ -32,6 +32,7 @@ const Blogs = () => {
           innovations, and digital lifestyle trends.
         </p>
       </div>
+
       {/* Blog Categories */}
       <div className="flex flex-wrap justify-center gap-4 mb-12">
         {[
@@ -49,12 +50,13 @@ const Blogs = () => {
           </span>
         ))}
       </div>
+
       {/* Blog Cards */}
       <div className="grid md:grid-cols-3 gap-10 mb-16">
         {/* Card 1 */}
         <div className="bg-white border shadow-md rounded-lg overflow-hidden">
           <img
-            src="public\Images\top_5_mobile-removebg-preview.png"
+            src="/Images/top_5_mobile-removebg-preview.png"
             alt="Smartphones"
             className="w-full h-48 object-cover"
           />
@@ -75,7 +77,7 @@ const Blogs = () => {
         {/* Card 2 */}
         <div className="bg-white border shadow-md rounded-lg overflow-hidden">
           <img
-            src="public\Images\blogs2.jpg"
+            src="/Images/blogs2.jpg"
             alt="AI Gadgets"
             className="w-full h-48 object-cover"
           />
@@ -96,7 +98,7 @@ const Blogs = () => {
         {/* Card 3 */}
         <div className="bg-white border shadow-md rounded-lg overflow-hidden">
           <img
-            src="public\Images\blogs3.jpg"
+            src="/Images/blogs3.jpg"
             alt="Smart Home"
             className="w-full h-48 object-cover"
           />
@@ -114,6 +116,7 @@ const Blogs = () => {
           </div>
         </div>
       </div>
+
       {/* 🔥 Trending Section */}
       <div className="mt-20">
         <h2 className="text-3xl font-bold text-center mb-10 text-purple-700">
@@ -124,17 +127,17 @@ const Blogs = () => {
             {
               title: "Foldable Phones Revolution",
               desc: "Everything you need to know about the new era of foldables.",
-              img: "public/Images/fold2.jpg",
+              img: "/Images/fold2.jpg",
             },
             {
               title: "Metaverse Devices",
               desc: "How gadgets are adapting for virtual realities.",
-              img: "public/Images/metadevice.jpg",
+              img: "/Images/metadevice.jpg",
             },
             {
               title: "Green Tech Innovations",
               desc: "Eco-friendly gadgets that save energy and reduce e-waste.",
-              img: "public/Images/greentech.jpg",
+              img: "/Images/greentech.jpg",
             },
           ].map((item, idx) => (
             <div
@@ -160,6 +163,7 @@ const Blogs = () => {
           ))}
         </div>
       </div>
+
       {/* 🎥 Tech Video Section */}
       <div className="mt-20 bg-gray-100 p-10 rounded-lg">
         <h2 className="text-3xl font-bold text-center mb-8">
@@ -186,30 +190,37 @@ const Blogs = () => {
           </div>
         </div>
       </div>
-      {/* 📊 Stats Section */}
+
+      {/* 📊 Stats Section with CountUp */}
       <div className="mt-20 text-center">
         <h2 className="text-3xl font-bold text-purple-700 mb-10">
           📊 Tech By The Numbers
         </h2>
         <div className="grid md:grid-cols-4 gap-8">
           {[
-            { number: "75%", label: "Consumers Use Smart Devices Daily" },
-            { number: "4.3⭐", label: "Avg. Rating of Reviewed Gadgets" },
-            { number: "120+", label: "Tech Brands Featured" },
-            { number: "98%", label: "Positive Reader Feedback" },
+            { number: 75, suffix: "%", label: "Consumers Use Smart Devices Daily" },
+            { number: 4.3, suffix: "⭐", label: "Avg. Rating of Reviewed Gadgets" },
+            { number: 120, suffix: "+", label: "Tech Brands Featured" },
+            { number: 98, suffix: "%", label: "Positive Reader Feedback" },
           ].map((stat, idx) => (
             <div
               key={idx}
               className="bg-purple-100 p-6 rounded-lg shadow hover:scale-105 transition"
             >
               <h4 className="text-4xl font-bold text-purple-700 mb-2">
-                {stat.number}
+                <CountUp
+                  end={stat.number}
+                  duration={2}
+                  decimals={stat.number % 1 !== 0 ? 1 : 0}
+                />
+                {stat.suffix}
               </h4>
               <p className="text-gray-700 text-sm">{stat.label}</p>
             </div>
           ))}
         </div>
       </div>
+
       {/* 💬 Testimonials Section */}
       <div className="mt-20 bg-white py-12">
         <h2 className="text-3xl font-bold text-center mb-10">
@@ -241,30 +252,28 @@ const Blogs = () => {
           ))}
         </div>
       </div>
-      {/* Newsletter CTA */}{" "}
+
+      {/* Newsletter CTA */}
       <div className="bg-blue-50 p-8 rounded-lg text-center max-w-2xl mx-auto">
-        {" "}
         <h3 className="text-2xl font-bold mb-4">
           📬 Don’t miss a single update
-        </h3>{" "}
+        </h3>
         <p className="text-gray-600 mb-6">
           Subscribe to our newsletter and stay ahead in the world of tech.
-        </p>{" "}
+        </p>
         <form className="flex flex-col md:flex-row items-center justify-center gap-4">
-          {" "}
           <input
             type="email"
             placeholder="Enter your email"
             className="w-full md:w-2/3 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />{" "}
+          />
           <button
             type="submit"
             className="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition"
           >
-            {" "}
-            Subscribe{" "}
-          </button>{" "}
-        </form>{" "}
+            Subscribe
+          </button>
+        </form>
       </div>
     </div>
   );

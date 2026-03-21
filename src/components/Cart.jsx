@@ -1,43 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import db from "../services/firebase.services";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  const navigate = useNavigate();
 
-  const fetchCartItems = async () => {
-    const auth = getAuth();
-    const user = auth.currentUser;
-
-    if (!user) {
-      alert("Please log in to view your cart.");
-      setLoading(false);
-      return;
-    }
-
+  // Fetch cart items from Firestore for the authenticated user
+  const fetchCartItems = async (uid) => {
     try {
-      const cartRef = collection(db, "users", user.uid, "cart");
+      const cartRef = collection(db, "users", uid, "cart");
       const snapshot = await getDocs(cartRef);
 
       const items = snapshot.docs.map((doc) => ({
         id: doc.id,
-        quantity: 1, // default quantity
+        quantity: 1,
         ...doc.data(),
       }));
 
       setCartItems(items);
     } catch (error) {
       console.error("Error fetching cart items:", error);
+      setCartItems([]);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchCartItems();
-  }, []);
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchCartItems(user.uid);
+      } else {
+        // No alert here on logout or page load, just redirect silently
+        setCartItems([]);
+        setLoading(false);
+        navigate("/login");
+      }
+      setCheckingAuth(false);
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   const incrementQuantity = (itemId) => {
     setCartItems((prev) =>
@@ -61,35 +70,32 @@ const Cart = () => {
     );
   };
 
-  // Remove item from Firestore AND local state
   const removeItemFromCart = async (itemId) => {
     const auth = getAuth();
     const user = auth.currentUser;
 
     if (!user) {
       alert("Please log in to modify your cart.");
+      navigate("/login");
       return;
     }
 
     try {
-      // Delete doc from Firestore
       const docRef = doc(db, "users", user.uid, "cart", itemId);
       await deleteDoc(docRef);
 
-      // Remove item from local state
       setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
     } catch (error) {
       console.error("Error removing item from cart:", error);
     }
   };
 
-  // Calculate total price
   const totalPrice = cartItems.reduce((acc, item) => {
     const priceNumber = parseFloat(item.price.replace(/[^0-9.-]+/g, ""));
     return acc + (priceNumber * (item.quantity || 1));
   }, 0);
 
-  if (loading) {
+  if (checkingAuth || loading) {
     return (
       <div className="flex items-center justify-center h-screen">
         <p className="text-lg font-medium">Loading your cart...</p>
@@ -107,25 +113,30 @@ const Cart = () => {
   }
 
   return (
-    <div className="px-6 md:px-20 py-16 bg-gray-50 min-h-screen">
-      <h1 className="text-3xl font-bold mb-8 text-purple-700">🛒 Your Cart</h1>
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div className="px-4 sm:px-6 md:px-10 lg:px-20 py-16 bg-gray-50 min-h-screen">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-8 text-purple-700">
+        🛒 Your Cart
+      </h1>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-screen-xl mx-auto">
         {cartItems.map((item) => (
           <div
             key={item.id}
-            className="bg-white border rounded-xl shadow-md overflow-hidden hover:shadow-xl transition"
+            className="bg-white border rounded-xl shadow-md overflow-hidden hover:shadow-xl transition flex flex-col"
           >
-            <img
-              src={item.image}
-              alt={item.name}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-5">
-              <h3 className="text-lg font-semibold mb-2">{item.name}</h3>
-              <p className="text-gray-600 text-sm mb-2">{item.description}</p>
-              <p className="text-lg font-bold text-purple-600 mb-2">{item.price}</p>
+            <div className="aspect-w-4 aspect-h-3">
+              <img
+                src={item.image}
+                alt={item.name}
+                className="object-cover rounded-t-xl"
+              />
+            </div>
 
-              <div className="flex items-center gap-4 mb-4">
+            <div className="p-5 flex flex-col flex-grow">
+              <h3 className="text-lg font-semibold mb-2">{item.name}</h3>
+              <p className="text-gray-600 text-sm mb-2 flex-grow">{item.description}</p>
+              <p className="text-lg font-bold text-purple-600 mb-4">{item.price}</p>
+
+              <div className="flex items-center gap-4 mb-4 justify-center sm:justify-start">
                 <button
                   onClick={() => decrementQuantity(item.id)}
                   className="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold hover:bg-red-600 transition"
@@ -134,7 +145,7 @@ const Cart = () => {
                   -
                 </button>
 
-                <span className="text-lg font-semibold">{item.quantity || 1}</span>
+                <span className="text-lg font-semibold min-w-[24px] text-center">{item.quantity || 1}</span>
 
                 <button
                   onClick={() => incrementQuantity(item.id)}
@@ -156,13 +167,13 @@ const Cart = () => {
         ))}
       </div>
 
-      <div className="mt-12 max-w-md mx-auto text-center">
+      <div className="mt-12 max-w-md mx-auto text-center px-4">
         <p className="text-xl font-bold text-gray-800 mb-4">
-          Total: {totalPrice.toFixed(2)}
+          Total: ₹{totalPrice.toLocaleString("en-IN")}
         </p>
         <button
           onClick={() => alert("Checkout functionality coming soon!")}
-          className="px-8 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition font-semibold"
+          className="w-full sm:w-auto px-8 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition font-semibold"
         >
           Checkout
         </button>

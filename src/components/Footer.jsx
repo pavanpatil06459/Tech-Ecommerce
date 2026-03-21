@@ -8,11 +8,10 @@ function Footer() {
           <ul>
             <li className="flex items-center space-x-2 font-bold text-2xl mb-3">
               <img
-                src="public\Images\header logo.png"
-                alt="GitHub Logo"
+                src="/Images/header logo.png"
+                alt="TechSpace Logo"
                 className="w-10 h-10"
               />
-
               <span className="text-white">TechSpace</span>
             </li>
           </ul>
@@ -26,7 +25,6 @@ function Footer() {
         {/* Quick Links */}
         <div>
           <h2 className="text-lg font-semibold text-white mb-3">Quick Links</h2>
-          
           <ul className="space-y-2">
             <li>
               <a href="/products" className="hover:text-blue-400">
@@ -34,17 +32,15 @@ function Footer() {
               </a>
             </li>
             <li>
-              <a href="about" className="hover:text-blue-400">
+              <a href="/about" className="hover:text-blue-400">
                 About Us
               </a>
             </li>
             <li>
-              <a href="#" className="hover:text-blue-400">
-                Careers
-              </a>
+              <span className="text-gray-500 cursor-not-allowed">Careers</span>
             </li>
             <li>
-              <a href="contact" className="hover:text-blue-400">
+              <a href="/contact" className="hover:text-blue-400">
                 Contact
               </a>
             </li>
@@ -56,74 +52,70 @@ function Footer() {
           <h2 className="text-lg font-semibold text-white mb-3">Support</h2>
           <ul className="space-y-2">
             <li>
-              <a href="#" className="hover:text-blue-400">
-                Help Center
-              </a>
+              <span className="text-gray-500 cursor-not-allowed">Help Center</span>
             </li>
             <li>
-              <a href="#" className="hover:text-blue-400">
-                Privacy Policy
-              </a>
+              <span className="text-gray-500 cursor-not-allowed">Privacy Policy</span>
             </li>
             <li>
-              <a href="#" className="hover:text-blue-400">
-                Terms of Service
-              </a>
+              <span className="text-gray-500 cursor-not-allowed">Terms of Service</span>
             </li>
             <li>
-              <a href="#" className="hover:text-blue-400">
-                FAQs
-              </a>
+              <span className="text-gray-500 cursor-not-allowed">FAQs</span>
             </li>
           </ul>
         </div>
 
         {/* Social Media */}
         <div>
-          <h2 className="text-lg font-semibold text-white mb-3">
-            Social Media
-          </h2>
+          <h2 className="text-lg font-semibold text-white mb-3">Social Media</h2>
           <ul className="space-y-5">
             <li>
               <a
                 href="https://github.com/pavanpatil06459"
-                className="flex items-center space-x-2 "
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="flex items-center space-x-2"
               >
                 <img
-                  src="public\socialmediaimg\github.png"
+                  src="/socialmediaimg/github.png"
                   alt="GitHub Logo"
                   className="w-6 h-6"
                 />
-
                 <span className="text-gray-300 hover:text-blue-400">GitHub</span>
               </a>
             </li>
             <li>
               <a
                 href="https://www.instagram.com/pavanpatil_6459/"
-                className="flex items-center space-x-2 "
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="flex items-center space-x-2"
               >
                 <img
-                  src="public\socialmediaimg\instagram.png"
-                  alt="GitHub Logo"
-                  className="w-6 h-6 "
+                  src="/socialmediaimg/instagram.png"
+                  alt="Instagram Logo"
+                  className="w-6 h-6"
                 />
-
                 <span className="text-gray-300 hover:text-blue-400">Instagram</span>
               </a>
             </li>
             <li>
               <a
                 href="https://www.facebook.com/share/16vkJ5u842/"
-                className="flex items-center space-x-2 "
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="flex items-center space-x-2"
               >
                 <img
-                  src="public\socialmediaimg\facebook.png"
-                  alt="GitHub Logo"
+                  src="/socialmediaimg/facebook.png"
+                  alt="Facebook Logo"
                   className="w-6 h-6"
                 />
-
-                <span className=" text-gray-300 hover:text-blue-400 ">Facebook</span>
+                <span className="text-gray-300 hover:text-blue-400">Facebook</span>
               </a>
             </li>
           </ul>
@@ -134,7 +126,7 @@ function Footer() {
       <div className="border-t border-gray-700 my-6"></div>
 
       {/* Bottom Section */}
-      <div className="flex flex-col md:flex-row items-center justify-center text-sm text-gray-400 ">
+      <div className="flex flex-col md:flex-row items-center justify-center text-sm text-gray-400">
         <p>© {new Date().getFullYear()} TechSpace. All rights reserved.</p>
       </div>
     </footer>

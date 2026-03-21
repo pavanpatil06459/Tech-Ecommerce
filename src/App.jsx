@@ -1,6 +1,4 @@
-import { useState } from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -12,7 +10,10 @@ import Payment from "./components/Payment";
 import Footer from "./components/Footer";
 import Contact from "./components/Contact";
 import Register from "./components/Register";
-import './App.css';
+import ProtectedRoute from "./components/ProtectedRoute";
+
+
+
 
 function App() {
   return (
@@ -24,12 +25,43 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/blogs" element={<Blogs />} />
           <Route path="/products" element={<Products />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/payment" element={<Payment />} />
+          <Route
+            path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/payment"
+            element={
+              <ProtectedRoute>
+                <Payment />
+              </ProtectedRoute>
+            }
+          />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="cart" element={<Cart />} />
+          <Route
+            path="/login"
+            element={
+              !sessionStorage.getItem("authToken") ? (
+                <Login />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              !sessionStorage.getItem("authToken") ? (
+                <Register />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
+          />
         </Routes>
         <Footer />
       </Router>
