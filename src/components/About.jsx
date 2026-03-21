@@ -1,4 +1,57 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+const offerCards = [
+  {
+    img: "/Images/card1.png",
+    alt: "Latest Gadgets & Accessories",
+    title: "Latest Gadgets & Accessories",
+    desc: "Find the newest tech products with us.",
+  },
+  {
+    img: "/Images/card2.png",
+    alt: "Verified Products",
+    title: "100% Genuine & Verified Products",
+    desc: "We ensure all our products are authentic.",
+  },
+  {
+    img: "/Images/card3.png",
+    alt: "Secure Payments",
+    title: "Secure Payments",
+    desc: "Shop with confidence using secure payment options.",
+  },
+  {
+    img: "/Images/card4.png",
+    alt: "Fast Delivery",
+    title: "Fast & Reliable Delivery",
+    desc: "Get your purchases delivered quickly and safely.",
+  },
+  {
+    img: "/Images/card5.png",
+    alt: "Customer Support",
+    title: "24/7 Customer Support",
+    desc: "We're here to help, anytime, anywhere.",
+  },
+  {
+    img: "/Images/card6.png",
+    alt: "Easy Returns",
+    title: "Easy Returns & Warranty",
+    desc: "Shop worry-free with hassle-free returns.",
+  },
+];
+
+const whyLeft = [
+  "Exclusive tech deals",
+  "Curated product selection",
+  "Affordable pricing",
+  "Customer-first service",
+];
+
+const whyRight = [
+  "🔐 Trust & Authenticity — We only offer 100% genuine, verified products.",
+  "🚀 Innovation First — We stay ahead of the tech curve, bringing you the latest breakthroughs.",
+  "❤️ Customer-Centric — Your satisfaction drives everything we do — from support to shipping.",
+];
 
 const About = () => {
   const [loading, setLoading] = useState(true);
@@ -21,208 +74,126 @@ const About = () => {
 
   return (
     <>
-      <section className="relative bg-gradient-to-r from-indigo-300 via-purple-500 to-pink-300 text-white py-5 px-6 text-left rounded-b-3xl shadow-lg">
-        <div className="absolute inset-0 bg-black/20 rounded-b-3xl"></div>
-
-        <div className="relative z-10 max-w-3xl mx-auto text-center py-10">
-          <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+      {/* ── Hero Banner ── */}
+      <section className="relative bg-gradient-to-br from-indigo-400 via-purple-500 to-pink-400 text-white py-14 sm:py-20 px-4 sm:px-6 text-center">
+        <div className="absolute inset-0 bg-black/20" />
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
             Welcome to <span className="text-yellow-300">TechSpace</span>
           </h1>
-
-          <p className="mt-4 text-lg md:text-xl text-gray-200">
-            <span className="typewriter-loop">
-              Empowering your digital lifestyle with the latest in tech 🚀
-            </span>
+          <p className="text-base sm:text-lg md:text-xl text-gray-100 mb-8 max-w-xl mx-auto">
+            Empowering your digital lifestyle with the latest in tech 🚀
           </p>
-
-          <div className="mt-8">
-            <a
-              href="/products"
-              className="inline-block bg-yellow-400 text-black font-semibold px-8 py-3 rounded-full shadow-md hover:bg-yellow-500 transition-all"
-            >
-              Shop Now
-            </a>
-          </div>
+          <Link
+            to="/products"
+            className="inline-block bg-yellow-400 text-black font-semibold px-7 sm:px-8 py-3 rounded-full shadow-lg hover:bg-yellow-300 transition text-sm sm:text-base"
+          >
+            Shop Now
+          </Link>
         </div>
       </section>
 
-      <section className="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-16 bg-white max-w-7xl mx-auto">
-        <div className="md:w-1/2 mb-10 md:mb-0">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-relaxed">
+      {/* ── Mission Section ── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <div className="w-full md:w-1/2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 leading-relaxed mb-4">
             At <span className="text-blue-600">TechSpace</span>, we believe
-            <br />
-            technology should be <br />
-            <span className="text-gray-900">
-              simple, reliable, and <br /> accessible to everyone.
-            </span>
-          </h1>
-          <p className="text-gray-600 mt-4 text-sm md:text-base">
-            Our mission is to bring the latest gadgets <br />
-            and innovations right to your fingertips.
+            technology should be{" "}
+            <span className="text-purple-600">simple, reliable,</span> and
+            accessible to everyone.
+          </h2>
+          <p className="text-gray-500 text-sm sm:text-base">
+            Our mission is to bring the latest gadgets and innovations right to
+            your fingertips, with a seamless shopping experience you can trust.
           </p>
         </div>
 
-        <div className="md:w-1/2 flex justify-center">
+        <div className="w-full md:w-1/2 flex justify-center">
           <img
             src="/Images/about.png"
             alt="Tech Illustration showing modern devices"
-            className="w-full max-w-xl mx-auto"
+            className="w-full max-w-sm sm:max-w-md"
           />
         </div>
       </section>
 
-      <section className="bg-white py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-14 text-shadow-lg">
-          -- What We Offer --
-        </h2>
+      {/* ── What We Offer ── */}
+      <section className="bg-gray-50 py-12 sm:py-16 px-4 sm:px-6">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-10 sm:mb-12">
+            — What We Offer —
+          </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-14 max-w-4xl mx-auto">
-          {/* Card 1 */}
-          <div className="text-center p-6 shadow-xl rounded-lg">
-            <img
-              src="/Images/card1.png"
-              alt="Latest Gadgets & Accessories illustration"
-              className="mx-auto w-40 h-40 mb-4"
-            />
-            <h3 className="font-semibold text-gray-800">
-              Latest Gadgets & Accessories
-            </h3>
-            <p className="text-gray-600 text-sm mt-2">
-              Find the newest tech products with us.
-            </p>
-          </div>
-
-          {/* Card 2 */}
-          <div className="text-center p-6 shadow-xl rounded-lg">
-            <img
-              src="/Images/card2.png"
-              alt="Verified Products illustration"
-              className="mx-auto w-32 h-32 mb-4"
-            />
-            <h3 className="font-semibold text-gray-800">
-              100% Genuine & Verified Products
-            </h3>
-            <p className="text-gray-600 text-sm mt-2">
-              We ensure all our products are authentic.
-            </p>
-          </div>
-
-          {/* Card 3 */}
-          <div className="text-center p-6 shadow-xl rounded-lg">
-            <img
-              src="/Images/card3.png"
-              alt="Secure Payments illustration"
-              className="mx-auto w-32 h-32 mb-4"
-            />
-            <h3 className="font-semibold text-gray-800">Secure Payments</h3>
-            <p className="text-gray-600 text-sm mt-2">
-              Shop with confidence using secure payment options.
-            </p>
-          </div>
-
-          {/* Card 4 */}
-          <div className="text-center p-6 shadow-xl rounded-lg">
-            <img
-              src="/Images/card4.png"
-              alt="Fast & Reliable Delivery illustration"
-              className="mx-auto w-32 h-32 mb-4"
-            />
-            <h3 className="font-semibold text-gray-800">
-              Fast & Reliable Delivery
-            </h3>
-            <p className="text-gray-600 text-sm mt-2">
-              Get your purchases delivered quickly and safely.
-            </p>
-          </div>
-
-          {/* Card 5 */}
-          <div className="text-center p-6 shadow-xl rounded-lg">
-            <img
-              src="/Images/card5.png"
-              alt="Customer Support illustration"
-              className="mx-auto w-32 h-40 mb-4"
-            />
-            <h3 className="font-semibold text-gray-800">24/7 Customer Support</h3>
-            <p className="text-gray-600 text-sm mt-2">
-              We're here to help, anytime, anywhere.
-            </p>
-          </div>
-
-          {/* Card 6 */}
-          <div className="text-center p-6 shadow-xl rounded-lg">
-            <img
-              src="/Images/card6.png"
-              alt="Easy Returns & Warranty illustration"
-              className="mx-auto w-32 h-32 mb-4"
-            />
-            <h3 className="font-semibold text-gray-800">Easy Returns & Warranty</h3>
-            <p className="text-gray-600 text-sm mt-2">
-              Shop worry-free with hassle-free returns.
-            </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+            {offerCards.map(({ img, alt, title, desc }) => (
+              <div
+                key={title}
+                className="bg-white text-center p-5 sm:p-6 shadow-md rounded-2xl hover:shadow-lg transition-shadow"
+              >
+                <img
+                  src={img}
+                  alt={alt}
+                  className="mx-auto w-24 h-24 sm:w-28 sm:h-28 object-contain mb-4"
+                />
+                <h3 className="font-semibold text-gray-800 text-sm sm:text-base mb-2">
+                  {title}
+                </h3>
+                <p className="text-gray-500 text-xs sm:text-sm">{desc}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-16 px-6 md:px-16 max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-14 text-shadow-lg">
-          -- Why Choose Us --
+      {/* ── Why Choose Us ── */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-10 sm:mb-12">
+          — Why Choose Us —
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center max-w-4xl mx-auto">
-          <ul className="space-y-4 text-gray-700">
-            <li className="flex items-center">
-              <span className="text-blue-500 mr-3">✔️</span>
-              Exclusive tech deals
-            </li>
-            <li className="flex items-center">
-              <span className="text-blue-500 mr-3">✔️</span>
-              Curated product selection
-            </li>
-            <li className="flex items-center">
-              <span className="text-blue-500 mr-3">✔️</span>
-              Affordable pricing
-            </li>
-            <li className="flex items-center">
-              <span className="text-blue-500 mr-3">✔️</span>
-              Customer-first service
-            </li>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {/* Left */}
+          <ul className="space-y-4">
+            {whyLeft.map((item) => (
+              <li
+                key={item}
+                className="flex items-center gap-3 text-gray-700 text-sm sm:text-base"
+              >
+                <span className="text-blue-500 text-lg">✔️</span>
+                {item}
+              </li>
+            ))}
           </ul>
 
-          <div className="text-gray-700 md:px-10">
-            <ul className="space-y-4 text-gray-700">
-              <li className="flex items-center">
-                <span className="text-blue-500 mr-3">✔️</span>
-                🔐 Trust & Authenticity — We only offer 100% genuine, verified
-                products.
+          {/* Right */}
+          <ul className="space-y-4">
+            {whyRight.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 text-gray-700 text-sm sm:text-base"
+              >
+                <span className="text-blue-500 text-lg mt-0.5">✔️</span>
+                {item}
               </li>
-              <li className="flex items-center">
-                <span className="text-blue-500 mr-3">✔️</span>
-                🚀 Innovation First — We stay ahead of the tech curve, bringing
-                you the latest breakthroughs.
-              </li>
-              <li className="flex items-center">
-                <span className="text-blue-500 mr-3">✔️</span>
-                ❤️ Customer-Centric — Your satisfaction drives everything we do —
-                from support to shipping.
-              </li>
-            </ul>
-          </div>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <section className="bg-white py-10 px-6 md:px-16 text-center max-w-7xl mx-auto">
-        <h2 className="text-3xl font-bold text-gray-800 mb-8 mt-6">
+      {/* ── CTA ── */}
+      <section className="bg-gradient-to-r from-purple-600 to-indigo-600 py-12 sm:py-14 px-4 sm:px-6 text-white text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-3">
           🛍️ Ready to Upgrade Your Tech?
         </h2>
-
-        <div className="flex justify-center">
-          <a
-            href="/products"
-            className="inline-block bg-yellow-400 text-black font-semibold px-8 py-3 rounded-full shadow-md hover:bg-yellow-500 transition-all"
-          >
-            Shop Now
-          </a>
-        </div>
+        <p className="text-white/75 mb-6 text-sm sm:text-base max-w-md mx-auto">
+          Browse our full range of verified tech products today.
+        </p>
+        <Link
+          to="/products"
+          className="inline-block bg-yellow-400 text-black font-semibold px-8 py-3 rounded-full shadow-lg hover:bg-yellow-300 transition text-sm sm:text-base"
+        >
+          Shop Now
+        </Link>
       </section>
     </>
   );
