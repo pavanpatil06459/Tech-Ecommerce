@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, setPersistence, browserSessionPersistence } from "firebase/auth";
 import { auth } from "../enviroment";
 
 const Login = () => {
@@ -16,6 +16,11 @@ const Login = () => {
     setError("");
     setLoading(true);
     try {
+      // ✅ Enforce session-only persistence before every login
+      // This guarantees the auth state is NEVER saved to localStorage
+      // so opening the app on a different device won't auto-login
+      await setPersistence(auth, browserSessionPersistence);
+
       const userCredential = await signInWithEmailAndPassword(
         auth,
         formData.email.trim(),
