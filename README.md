@@ -7,7 +7,7 @@ Users can browse products, manage cart, and experience a smooth, responsive shop
 
 ## 🌐 Live Demo
 
-👉 *(Add your deployed link here)*
+👉 *(https://tech-ecommerce-51939.web.app/)*
 
 ---
 
