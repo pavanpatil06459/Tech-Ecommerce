@@ -1,12 +1,123 @@
-# React + Vite
+# 🚀 TechSpace — Tech E-Commerce Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern **Tech E-Commerce Web Application** built using **React, Firebase, and Tailwind CSS**.
+Users can browse products, manage cart, and experience a smooth, responsive shopping flow.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Demo
 
-## Expanding the ESLint configuration
+👉 *(Add your deployed link here)*
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## ✨ Key Features
+
+### 🔐 Authentication
+
+* Firebase Email/Password login & register
+* Protected routes (Cart, Contact, Payment)
+* Session-based authentication
+
+### 🛒 Shopping Cart
+
+* Add to cart (no duplicates)
+* Increase / decrease quantity
+* Remove items with real-time update
+* Cart synced with Firebase Firestore
+
+### 💰 Pricing System
+
+* Dynamic item subtotal
+* Real-time total cart calculation
+* Order summary UI
+
+### 📱 Responsive UI
+
+* Mobile-first design
+* Responsive grid layout (1 → 4 columns)
+* Hamburger menu for mobile
+
+### 🎨 UI/UX Enhancements
+
+* Smooth animations (Framer Motion, AOS)
+* Toast notifications
+* Loading spinners
+* Interactive product carousel
+
+---
+
+## 🛠 Tech Stack
+
+* **Frontend:** React 19
+* **Styling:** Tailwind CSS
+* **Routing:** React Router
+* **Backend:** Firebase (Auth + Firestore)
+* **Build Tool:** Vite
+
+---
+
+## 📁 Project Structure
+
+```
+techspace/
+├── src/
+│   ├── components/
+│   ├── pages/
+│   ├── services/
+│   ├── App.jsx
+│   └── main.jsx
+├── public/
+├── firebase.json
+└── package.json
+```
+
+---
+
+## ⚙️ How It Works
+
+* Products fetched from Firestore
+* User authentication handled via Firebase
+* Cart stored per user
+* UI updates dynamically based on state
+
+---
+
+## 🚢 Deployment
+
+Deployed using **Firebase Hosting**
+
+```bash
+npm run build
+firebase deploy
+```
+
+---
+
+## 📸 Screenshots
+
+![Home](screenshots/home.png)
+![Products](screenshots/products.png)
+![Cart](screenshots/cart.png)
+![Mobile](screenshots/mobile.png)
+
+---
+
+## 🚀 Future Improvements
+
+* Payment integration (Razorpay / Stripe)
+* Product search & filters
+* Wishlist feature
+* Admin dashboard
+
+---
+
+## 👨‍💻 Author
+
+**Pawan Patil**
+
+---
+
+## ⭐ Support
+
+If you like this project, give it a ⭐ on GitHub!
