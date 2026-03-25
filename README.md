@@ -96,10 +96,13 @@ firebase deploy
 
 ## 📸 Screenshots
 
-![Home]<img src="Screenshots/HomePage.png" width="300" />
-![Products](screenshots/products.png)
-![Cart](screenshots/cart.png)
-![Mobile](screenshots/mobile.png)
+<img src="Screenshots/HomePage.png" width="300" />
+<img src="Screenshots/ContactPage.png" width="300" />
+<img src="Screenshots/CartPage.png" width="300" />
+<img src="Screenshots/LoginPage.png" width="300" />
+<img src="Screenshots/ProductPage.png" width="300" />
+<img src="Screenshots/RegistrationPage.png" width="300" />
+
 
 ---
 
