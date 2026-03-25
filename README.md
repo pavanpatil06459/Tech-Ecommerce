@@ -96,7 +96,7 @@ firebase deploy
 
 ## 📸 Screenshots
 
-![Home](screenshots/home.png)
+![Home]<img src="Screenshots/HomePage.png" width="300" />
 ![Products](screenshots/products.png)
 ![Cart](screenshots/cart.png)
 ![Mobile](screenshots/mobile.png)
